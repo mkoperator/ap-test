@@ -2,7 +2,6 @@ stages:
  - stage: Infrastructure
    jobs:
    - job: Check
-     continueOnError: true
      steps:
      -  bash: exit 1
    - job: Deploy
