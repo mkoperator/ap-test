@@ -7,9 +7,9 @@ stages:
      -  bash: exit 1
    - job: Deploy
      dependsOn: Check
-     condition: failed('Check')
+     condition: succeededOrFailed('Check')
      steps:
-     -  bash: exit 0
+     -  bash: echo $(ProduceVar.MyVar); exit 0;
  - stage: Kubernetes
    dependsOn: Infrastructure
    condition: succeededOrFailed('Infrastructure')
