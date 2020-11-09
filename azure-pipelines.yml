@@ -12,6 +12,6 @@ stages:
      -  bash: echo "Deploy"
  - stage: Kubernetes
    dependsOn: Infrastructure
-   condition: succeeded('Infrastructure')
+   condition: succeeded('Infrastructure.Deploy')
    jobs:
    - job: Check
