@@ -5,7 +5,6 @@ stages:
      continueOnError: true
      steps:
      -  bash: exit 1
-        name: validate
    - job: Deploy
      dependsOn: Check
      condition: failed('Check')
