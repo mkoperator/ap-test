@@ -8,7 +8,7 @@ stages:
         name: Infra
    - job: Deploy
      dependsOn: Check
-     condition: $[ dependencies.Check.outputs['Infra.Exists'] ]
+     condition: eq(dependencies.Check.outputs['Infra.Exists'],true)
      steps:
      -  bash: echo "deploy"; exit 0;
  - stage: Kubernetes
