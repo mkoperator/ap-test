@@ -18,9 +18,10 @@ stages:
    - job: Check
      continueOnError: true
      steps:
-     -  bash: exit 1
+     -  bash: echo '##vso[task.setvariable variable=Exists;isOutput=true]true'; exit 1
+        name: Kubernetes
    - job: Deploy
      dependsOn: Check
-     condition: $[ dependencies.Check.outputs['InfraExists.EXISTS'] ]
+     condition: eq(dependencies.Check.outputs['Kubernetes.Exists'],true)
      steps:
      -  bash: exit 0
