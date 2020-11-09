@@ -1,5 +1,5 @@
 stages:
- - stage: Intrastructure
+ - stage: Infrastructure
    jobs:
    - job: Check
      steps:
@@ -12,6 +12,6 @@ stages:
      -  bash: echo "Deploy"
  - stage: Kubernetes
    dependsOn: Infrastructure
-   condition: succeeded('Intrastructure')
+   condition: succeeded('Infrastructure')
    jobs:
    - job: Check
