@@ -4,15 +4,13 @@ stages:
    - job: Check
      continueOnError: true
      steps:
-     -  bash: echo '##vso[task.setvariable variable=EXISTS;isOutput=true]true'; exit 1
-        name: InfraExists
+     -  bash: echo '##vso[task.setvariable variable=Exists;isOutput=true]true'; exit 1
+        name: Infra
    - job: Deploy
      dependsOn: Check
-     condition: succeededOrFailed('Check')
-     variables:
-      Check: $[ dependencies.Check.outputs['InfraExists.EXISTS'] ]
+     condition: eq($[ dependencies.Check.outputs['Infra.Exists'] ], true)
      steps:
-     -  bash: echo $(Check); exit 0;
+     -  bash: echo "deploy"; exit 0;
  - stage: Kubernetes
    dependsOn: Infrastructure
    condition: succeededOrFailed('Infrastructure')
@@ -23,6 +21,6 @@ stages:
      -  bash: exit 1
    - job: Deploy
      dependsOn: Check
-     condition: succeededOrFailed('Check')
+     condition: $[ dependencies.Check.outputs['InfraExists.EXISTS'] ]
      steps:
      -  bash: exit 0
