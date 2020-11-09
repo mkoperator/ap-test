@@ -4,7 +4,7 @@ stages:
    - job: Check
      continueOnError: true
      steps:
-     -  bash: export EXISTS=true; exit 1
+     -  bash: echo '##vso[task.setvariable variable=EXISTS;isOutput=true]true'; exit 1
         name: InfraExists
    - job: Deploy
      dependsOn: Check
