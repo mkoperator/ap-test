@@ -9,8 +9,10 @@ stages:
    - job: Deploy
      dependsOn: Check
      condition: succeededOrFailed('Check')
+     variables:
+      Check: $[ dependencies.Check.outputs['InfraExists'] ]
      steps:
-     -  bash: echo $[ dependencies.Check.outputs['InfraExists'] ]; exit 0;
+     -  bash: echo $(Check); exit 0;
  - stage: Kubernetes
    dependsOn: Infrastructure
    condition: succeededOrFailed('Infrastructure')
