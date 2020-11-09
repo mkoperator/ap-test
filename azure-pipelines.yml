@@ -4,13 +4,13 @@ stages:
    - job: Check
      continueOnError: true
      steps:
-     -  bash: exit 1
+     -  bash: EXISTS=true; exit 1
         name: InfraExists
    - job: Deploy
      dependsOn: Check
      condition: succeededOrFailed('Check')
      variables:
-      Check: $[ dependencies.Check.outputs['InfraExists'] ]
+      Check: $[ dependencies.Check.outputs['InfraExists.EXISTS'] ]
      steps:
      -  bash: echo $(Check); exit 0;
  - stage: Kubernetes
