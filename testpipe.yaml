@@ -1,0 +1,9 @@
+stages:
+ - stage: Intrastructure
+   jobs:
+   - job: Check
+     steps:
+     -  bash: echo "Check"
+   - job: Deploy
+     steps:
+     -  bash: echo "Deploy"
