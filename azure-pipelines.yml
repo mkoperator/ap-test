@@ -2,15 +2,24 @@ stages:
  - stage: Infrastructure
    jobs:
    - job: Check
+     continueOnError: true
      steps:
      -  bash: exit 1
    - job: Deploy
      dependsOn: Check
      condition: failed('Check')
      steps:
-     -  bash: echo "Deploy"
+     -  bash: exit 0
  - stage: Kubernetes
    dependsOn: Infrastructure
-   condition: succeeded('Infrastructure.Deploy')
+   condition: succeededOrFailed('Infrastructure')
    jobs:
    - job: Check
+     continueOnError: true
+     steps:
+     -  bash: exit 1
+   - job: Deploy
+     dependsOn: Check
+     condition: failed('Check')
+     steps:
+     -  bash: exit 0
