@@ -3,7 +3,8 @@ stages:
    jobs:
    - job: Check
      steps:
-     -  bash: echo "Check"
+     -  bash: echo '##vso[task.setvariable variable=deploy;isOutput=true]true'
+        name: validate
    - job: Deploy
      steps:
      -  bash: echo "Deploy"
